@@ -11,6 +11,9 @@ const Button = ({handleClick, text}) => {
 }
 
 const Stat = ({text, value}) => {
+  if (isNaN(value)){
+    value = "Enter Feedback to calculate "+text
+  }
   return (
     <div>
       <div>{text}: {value}</div>
@@ -25,6 +28,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const total = good + bad + neutral
   const handleClick = (func, value) => () => {
     func(value)
   }
@@ -42,6 +46,9 @@ const App = () => {
           <Stat text="Good" value={good}/>
           <Stat text="Neutral" value={neutral}/>
           <Stat text="Bad" value={bad}/>
+          <Stat text="All" value={total}/>
+          <Stat text="Average" value={(good+bad*(-1))/total}/>
+          <Stat text="Positive Percentage" value={good/total}/>
         </div>
     </div>
   )

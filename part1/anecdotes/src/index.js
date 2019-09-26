@@ -15,6 +15,8 @@ const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [voteArray, updateVoteArray] = useState(new Array(arrLength).fill(0))
 
+  const maxIndex = voteArray.indexOf(Math.max(...voteArray))
+
   const getRandomIndex = () => {
     setSelected(Math.floor(Math.random()*arrLength))
   }
@@ -27,10 +29,13 @@ const App = (props) => {
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       {props.anecdotes[selected]}
       <p>has {voteArray[selected]} votes</p>
       <Button handleClick={getRandomIndex} text="next anecdote"/>
       <Button handleClick={castVote} text="vote"/>
+      <h2>Anecdote with most votes</h2>
+      {props.anecdotes[maxIndex]}
     </div>
   )
 }

@@ -10,16 +10,27 @@ const Button = ({handleClick, text}) => {
 }
 
 const App = (props) => {
+
+  const arrLength = props.anecdotes.length
   const [selected, setSelected] = useState(0)
+  const [voteArray, updateVoteArray] = useState(new Array(arrLength).fill(0))
 
   const getRandomIndex = () => {
-    setSelected(Math.floor(Math.random()*props.anecdotes.length))
+    setSelected(Math.floor(Math.random()*arrLength))
+  }
+
+  const castVote = () => {
+    const copyArr = [...voteArray]
+    copyArr[selected]+=1
+    updateVoteArray(copyArr)
   }
 
   return (
     <div>
       {props.anecdotes[selected]}
+      <p>has {voteArray[selected]} votes</p>
       <Button handleClick={getRandomIndex} text="next anecdote"/>
+      <Button handleClick={castVote} text="vote"/>
     </div>
   )
 }

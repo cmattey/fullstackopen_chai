@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const Note = ({person}) => {
 
   return (
     <div>
-      {person.name}
+      {person}
     </div>
   )
 }

@@ -3,24 +3,27 @@ import Note from './Note.js'
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    'Arto Hellas'
   ])
   const [ newName, setNewName ] = useState('')
 
 
   const rows = () => persons.map(person =>
-    <Note key={person.name} person={person} />
+    <Note key={person} person={person} />
   )
-
 
   const addName = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target)
-    const nameObject = {
-      name: newName,
+
+    if(persons.includes(newName)){
+      console.log("duplicate")
+      window.alert(`${newName} is already added to phonebook`)
+    }
+    else{
+      setPersons(persons.concat(newName))
     }
 
-    setPersons(persons.concat(nameObject))
     setNewName('')
   }
 

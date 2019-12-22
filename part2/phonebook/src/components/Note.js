@@ -4,7 +4,7 @@ const Note = ({person}) => {
 
   return (
     <div>
-      {person}
+      {person.name}: {person.number}
     </div>
   )
 }

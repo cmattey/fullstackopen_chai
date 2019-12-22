@@ -3,13 +3,29 @@ import Note from './Note.js'
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    {name:'Arto Hellas', number:1234}
+    {name:'Arto Hellas', number:1234},
+    {name:'Jeff Goldblum', number:789},
+    {name:'PewDiePie', number:420}
   ])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ searchName, setNewSearch] = useState('')
 
-  const rows = () => persons.map(person =>
-    <Note key={person.name} person={person} />
+  const rows = () => persons.map((person) =>{
+    if(searchName){
+      if(person.name.toLowerCase().includes(searchName.toLowerCase())){
+        console.log('match')
+        return(<Note key={person.name} person={person} />)
+      }
+      else{
+        return null
+      }
+    }
+    else{
+      console.log('no-match')
+      return(<Note key={person.name} person={person} />)
+    }
+  }
   )
 
   const addInfo = (event) => {
@@ -43,9 +59,21 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const handleSearchChange = (event) => {
+    console.log(event.target.value)
+    setNewSearch(event.target.value)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
+        <div>
+        Filter contacts:
+        <input value={searchName}
+              onChange={handleSearchChange}/>
+        </div>
+
+      <h3>Add New</h3>
       <form onSubmit={addInfo}>
         <div>
           name: <input

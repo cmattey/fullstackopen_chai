@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import Note from './Note.js'
+import PersonForm from './PersonForm.js'
+import Person from './Person.js'
+import Filter from './Filter.js'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -11,26 +13,9 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchName, setNewSearch] = useState('')
 
-  const rows = () => persons.map((person) =>{
-    if(searchName){
-      if(person.name.toLowerCase().includes(searchName.toLowerCase())){
-        console.log('match')
-        return(<Note key={person.name} person={person} />)
-      }
-      else{
-        return null
-      }
-    }
-    else{
-      console.log('no-match')
-      return(<Note key={person.name} person={person} />)
-    }
-  }
-  )
-
   const addInfo = (event) => {
     event.preventDefault()
-    console.log('button clicked', event.target)
+    // console.log('button clicked', event.target)
 
     const names = persons.map(person => person.name)
 
@@ -60,36 +45,28 @@ const App = () => {
   }
 
   const handleSearchChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewSearch(event.target.value)
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-        <div>
-        Filter contacts:
-        <input value={searchName}
-              onChange={handleSearchChange}/>
-        </div>
+      <h3>Filter contacts:</h3>
+      <Filter searchName = {searchName}
+              handleSearchChange = {handleSearchChange}/>
 
       <h3>Add New</h3>
-      <form onSubmit={addInfo}>
-        <div>
-          name: <input
-                value={newName}
-                onChange={handleNameChange}/>
-        </div>
-          number: <input
-                  value = {newNumber}
-                  onChange={handleNumChange}/>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {/* <div>debug: {newName}</div> */}
-        {rows()}
+      <PersonForm addInfo = {addInfo}
+                  newName = {newName}
+                  handleNameChange = {handleNameChange}
+                  newNumber = {newNumber}
+                  handleNumChange = {handleNumChange}
+                  />
+
+      <h3>Contacts</h3>
+        <Person persons = {persons}
+                searchName = {searchName}/>
     </div>
   )
 }

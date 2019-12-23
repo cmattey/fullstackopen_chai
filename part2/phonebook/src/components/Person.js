@@ -7,7 +7,7 @@ const Person = (props) =>{
       if(props.searchName){
         if(person.name.toLowerCase().includes(props.searchName.toLowerCase())){
           // console.log('match')
-          return(<Note key={person.name} person={person} />)
+          return(<Note key={person.id} person={person} />)
         }
         else{
           return null
@@ -15,7 +15,7 @@ const Person = (props) =>{
       }
       else{
         // console.log('no-match')
-        return(<Note key={person.name} person={person} />)
+        return(<Note key={person.id} person={person} />)
       }
     }
     )

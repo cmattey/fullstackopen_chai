@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PersonForm from './PersonForm.js'
 import Person from './Person.js'
 import Filter from './Filter.js'
+import axios from 'axios'
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    {name:'Arto Hellas', number:1234},
-    {name:'Jeff Goldblum', number:789},
-    {name:'PewDiePie', number:420}
-  ])
+  const [ persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchName, setNewSearch] = useState('')
+
+// Effect hook
+// If the second parameter is an empty array [],
+// then the effect is only run along with the first render of the component.
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
+  console.log('render', persons.length, 'contacts')
 
   const addInfo = (event) => {
     event.preventDefault()

@@ -2,6 +2,7 @@ import React from 'react'
 import Note from './Note.js'
 
 const Person = (props) =>{
+  console.log('person props', props)
   return(
     props.persons.map((person) =>{
       if(props.searchName){
@@ -13,9 +14,12 @@ const Person = (props) =>{
           return null
         }
       }
-      else{
+      else if(props.persons.length>0){
         // console.log('no-match')
         return(<Note key={person.id} person={person} />)
+      }
+      else{
+        return(<div></div>)
       }
     }
     )

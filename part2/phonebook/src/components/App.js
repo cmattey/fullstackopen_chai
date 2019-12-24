@@ -26,6 +26,8 @@ const App = () => {
 
   const addInfo = (event) => {
     event.preventDefault()
+
+    const baseUrl = 'http://localhost:3001/persons'
     // console.log('button clicked', event.target)
 
     const names = persons.map(person => person.name)
@@ -38,7 +40,13 @@ const App = () => {
       const personObj = {name:newName,
                       number:newNumber}
 
-      setPersons(persons.concat(personObj))
+      axios
+        .post(baseUrl, personObj)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+        })
+
+      // setPersons(persons.concat(personObj))
     }
 
     setNewName('')

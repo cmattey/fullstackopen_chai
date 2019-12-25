@@ -12,4 +12,13 @@ const create = (newPersonObj) => {
   return request.then(response => response.data)
 }
 
-export default {getAll, create}
+const remove = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`)
+  return request.then(response => {
+    console.log('del header', response)
+    return response.status
+  })
+
+}
+
+export default {getAll, create, remove}

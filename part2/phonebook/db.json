@@ -21,11 +21,6 @@
       "id": 4
     },
     {
-      "name": "Chaitanya",
-      "number": "123456420",
-      "id": 5
-    },
-    {
       "name": "Phoebe",
       "number": "9872414",
       "id": 6
@@ -34,6 +29,11 @@
       "name": "Joey",
       "number": "78962313",
       "id": 7
+    },
+    {
+      "name": "Chaitanya",
+      "number": "14124131",
+      "id": 8
     }
   ]
 }

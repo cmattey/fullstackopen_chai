@@ -29,7 +29,7 @@ const App = () => {
     const names = persons.map(person => person.name)
 
     if(names.includes(newName)){
-      console.log("duplicate")
+      console.log("duplicate found")
       window.alert(`${newName} is already added to phonebook`)
     }
     else{
@@ -79,7 +79,8 @@ const App = () => {
 
       <h3>Contacts</h3>
         <Person persons = {persons}
-                searchName = {searchName}/>
+                searchName = {searchName}
+                updatePersons = {setPersons}/>
     </div>
   )
 }

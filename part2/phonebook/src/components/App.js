@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PersonForm from './PersonForm.js'
 import Person from './Person.js'
 import Filter from './Filter.js'
+import SuccessMsg from './SuccessMsg.js'
+import ErrorMsg from './ErrorMsg.js'
 import personUtils from '../services/persons_util.js'
 
 const App = () => {
@@ -9,7 +11,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchName, setNewSearch] = useState('')
-
+  const [successMsg, setSuccessMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
 // Effect hook
 // If the second parameter is an empty array [],
 // then the effect is only run along with the first render of the component.
@@ -24,6 +27,13 @@ const App = () => {
   }, [])
   console.log('render', persons.length, 'contacts')
 
+  const displaySuccessNotification = (personObj) =>{
+    setSuccessMsg(`${personObj.name} was successfully added`)
+    setTimeout(()=>{
+      setSuccessMsg(null)
+    },5000)
+  }
+
   const addInfo = (event) => {
     event.preventDefault()
     console.log(event.target)
@@ -36,12 +46,14 @@ const App = () => {
     else{
       const personObj = {name:newName,
                       number:newNumber}
-
       personUtils
         .create(personObj)
         .then(newData=>{
           setPersons(persons.concat(newData))
         })
+
+      displaySuccessNotification(personObj)
+
     }
 
     setNewName('')
@@ -69,6 +81,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <SuccessMsg message={successMsg}/>
+      <ErrorMsg message={errorMsg}/>
       <h3>Filter contacts:</h3>
       <Filter searchName = {searchName}
               handleSearchChange = {handleSearchChange}/>
@@ -84,7 +98,8 @@ const App = () => {
       <h3>Contacts</h3>
         <Person persons = {persons}
                 searchName = {searchName}
-                updatePersons = {setPersons}/>
+                updatePersons = {setPersons}
+                setErrorMsg = {setErrorMsg}/>
     </div>
   )
 }

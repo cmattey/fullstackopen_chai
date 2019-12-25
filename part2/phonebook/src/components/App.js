@@ -26,6 +26,7 @@ const App = () => {
 
   const addInfo = (event) => {
     event.preventDefault()
+    console.log(event.target)
     const names = persons.map(person => person.name)
 
     if(names.includes(newName)){

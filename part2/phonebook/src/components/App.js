@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PersonForm from './PersonForm.js'
 import Person from './Person.js'
 import Filter from './Filter.js'
-import axios from 'axios'
+import personUtils from '../services/persons_util.js'
 
 const App = () => {
   const [ persons, setPersons] = useState([])
@@ -15,21 +15,17 @@ const App = () => {
 // then the effect is only run along with the first render of the component.
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    personUtils
+      .getAll()
+      .then(allData =>{
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(allData)
       })
   }, [])
   console.log('render', persons.length, 'contacts')
 
   const addInfo = (event) => {
     event.preventDefault()
-
-    const baseUrl = 'http://localhost:3001/persons'
-    // console.log('button clicked', event.target)
-
     const names = persons.map(person => person.name)
 
     if(names.includes(newName)){
@@ -40,13 +36,11 @@ const App = () => {
       const personObj = {name:newName,
                       number:newNumber}
 
-      axios
-        .post(baseUrl, personObj)
-        .then(response => {
-          setPersons(persons.concat(response.data))
+      personUtils
+        .create(personObj)
+        .then(newData=>{
+          setPersons(persons.concat(newData))
         })
-
-      // setPersons(persons.concat(personObj))
     }
 
     setNewName('')

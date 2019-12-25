@@ -55,6 +55,9 @@ const App = () => {
 
   const handleNumChange = (event) => {
     // console.log(event.target.value)
+    // Can we set a local variable here, to avoid re-rendering everytime, change
+    // is made to the form input (since this functinality is different from Search,
+    // where constant re-rendering makes sense)
     setNewNumber(event.target.value)
   }
 

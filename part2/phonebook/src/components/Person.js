@@ -10,7 +10,7 @@ const Person = (props) =>{
     personUtils
       .remove(person.id)
       .then(response => {
-        if(response.status===200){
+        if(response.status===204){
           console.log(`Note with id:${person.name} deleted`)
           // console.log(response)
           props.updatePersons(props.persons.filter(n=> n.id!==person.id))
